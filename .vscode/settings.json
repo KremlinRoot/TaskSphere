@@ -1,0 +1,6 @@
+{
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "docwriter.style": "Javadoc",
+    "docwriter.progress.trackClasses": true,
+    "docwriter.progress.trackTypes": false
+}
