@@ -2,7 +2,9 @@ package tests.tasks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
@@ -52,6 +54,14 @@ public class TestTask {
         assertEquals(null, testTask.getTitle());
     }
 
+    
+    // The test function checks if an IllegalArgumentException is thrown when a Task object is created
+    // with a long title exceeding the character limit.
+    @Test void testTaskTitleLengthLongException(){
+        String title82Length = "Various social media platforms have different character limits for their profiles.";
+        assertThrows(IllegalArgumentException.class, () -> new Task(title82Length));
+    }
+
     // PRIORITY VARIABLE
     @Test
     // This code snippet is a JUnit test method named `testTaskPriority` that tests
@@ -98,13 +108,24 @@ public class TestTask {
         assertNotEquals(null, taskTest.getPriority());
     }
 
+    @Test
+    public void testTaskPriorityIsUnselected(){
+        Task testTask = new Task("null", "null");
+        assertEquals(Priority.Unselected, testTask.getPriority());
+    }
+
+    @Test
+    public void testTaskUnknownPriorityValue(){
+        Task testTask = new Task("null", null, LocalDate.now(), null);
+        assertEquals(Priority.Unselected, testTask.getPriority());
+    }
+
 
     // DUE DATE VARIABLE
     // This test function checks if the due date of a task object is set correctly.
     @Test
     public void testTaskDueDate() {
-        Task taskTest = new Task("dummie", "dummie", LocalDate.of(1987, 01, 23), Priority.Unselected);
-        assertEquals(LocalDate.of(1987, 01, 23), taskTest.getDueDate());
+        assertThrows(IllegalArgumentException.class, () -> new Task("null",null,LocalDate.now(),null));
     }
 
     @Test
@@ -113,6 +134,14 @@ public class TestTask {
     public void testTaskDueDateNull(){
         Task taskTest = new Task("null", "null", null, Priority.Unselected);
         assertEquals(null, taskTest.getDueDate());
+    }
+
+    @Test
+    // This particular test method `testTaskPastDueDate()` is testing the functionality related to the
+    // due date of a `Task` object.
+    public void testTaskPastDueDate(){
+        Task taskTest = new Task("null", null, LocalDate.now().minusDays(1), Priority.Unselected);
+        assertEquals(LocalDate.now().minusDays(1), taskTest.getDueDate());
     }
 
     // CREATION DATE VARIABLE
@@ -132,6 +161,16 @@ public class TestTask {
     public void testCreationDateDifferentNull(){
         Task taskTest = new Task("null");
         assertNotEquals(null, taskTest.getCreationDate());
+    }
+
+    @Test
+    // This particular test method `testTaskCreationInvalidDate()` is checking whether an exception of
+    // type `DateTimeException` is thrown when attempting to create a new `Task` object with an invalid
+    // date. In this case, the date being passed is January 32, 2024, which is an invalid date since
+    // January only has 31 days. The test is verifying that the `Task` class correctly handles such
+    // invalid date inputs by throwing a `DateTimeException`.
+    public void testTaskCreationInvalidDate(){
+        assertThrows(DateTimeException.class, () -> new Task("null", null, LocalDate.of(2024, 1, 32), Priority.High));
     }
 
     // COMPLETED VARIABLE

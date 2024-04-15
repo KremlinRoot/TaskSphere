@@ -7,7 +7,8 @@ import java.time.LocalDate;
  * This class represents a task that will place into list in app (To Do List).
  */
 public class Task {
-
+    // CONSTANTS AND LIMITS
+    private final int MAX_LENGTH_TITLE = 80; // Constant of int type to delimit max length for title variable.
     // VARIABLES
     private String title; // Title of the task.
     private String description; // Description of the task.
@@ -35,10 +36,14 @@ public class Task {
             throw new IllegalArgumentException("Title can not be empty or null");
         }
 
+        if (title.length() > MAX_LENGTH_TITLE) {
+            throw new IllegalArgumentException("Title is too long and exceds of 80 characters.");
+        }
+
         // This code snippet is a validation check in the constructor of the `Task` class. It ensures
         // that the `taskPriority` parameter passed to the constructor is one of the valid values
         // defined in the `Priority` enum (`High`, `Medium`, or `Low`).
-        if (taskPriority != Priority.High && taskPriority != Priority.Medium && taskPriority != Priority.Low && taskPriority != Priority.Unselected && taskPriority != null) {
+        if (taskPriority != Priority.High && taskPriority != Priority.Medium && taskPriority != Priority.Low && taskPriority != Priority.Unselected) {
             throw new IllegalArgumentException("Invalid Priority, this value must be High, Medium, Low or Unselected.");
         }
         
@@ -78,13 +83,26 @@ public class Task {
      * @param description Description task.
      */
     public Task(String title, String description) {
+        // This code snippet is a validation check in the constructor of the `Task` class in Java. It
+        // ensures that the `title` parameter passed to the constructor is not null or an empty string.
+        // If the `title` is either null or empty, it throws an `IllegalArgumentException` with the
+        // message "Title can not be empty or null." This validation helps enforce a requirement that a
+        // task must have a non-null and non-empty title when it is being created.
         if (title == null || title.isEmpty()) {
             throw new IllegalArgumentException("Title can not be empty or null.");
         }
-        if (taskPriority != Priority.High && taskPriority != Priority.Medium && taskPriority != Priority.Low && taskPriority != Priority.Unselected && taskPriority != null) {
-            throw new IllegalArgumentException("Invalid Priority, this value must be High, Medium, Low or Unselected.");
+
+        // This code snippet is a validation check in the constructor of the `Task` class in Java. It
+        // ensures that the length of the `title` parameter passed to the constructor does not exceed a
+        // maximum limit defined by the constant `MAX_LENGTH_TITLE`, which is set to 80 characters. If
+        // the length of the `title` exceeds this limit, it throws an `IllegalArgumentException` with
+        // the message "Title is too long and exceeds 80 characters." This validation helps enforce a
+        // requirement that a task title should not be excessively long to maintain consistency and
+        // readability in the application.
+        if (title.length() > MAX_LENGTH_TITLE) {
+            throw new IllegalArgumentException("Title is too long and exceds of 80 characters.");
         }
-        
+                
         // This code snippet is a try-catch block used for handling potential exceptions when setting
         // the creation date for a task in the `Task` class constructor.
         try{
@@ -94,7 +112,7 @@ public class Task {
                 "Failed to assign creation date while creating object" +
                 creationDateException.getMessage(), creationDateException);
         }
-        
+        this.taskPriority = Priority.Unselected;
         this.title = title;
         this.description = description;
         this.completed = false;
@@ -106,10 +124,38 @@ public class Task {
      * @param title Task title.
      */
     public Task(String title) {
+        // This code snippet is a validation check in the constructor of the `Task` class in Java. It
+        // ensures that the `title` parameter passed to the constructor is not null or an empty string.
+        // If the `title` is either null or empty, it throws an `IllegalArgumentException` with the
+        // message "Title can not be empty or null". This validation helps enforce a requirement that a
+        // task must have a non-null and non-empty title when it is being created.
+        if (title == null || title.isEmpty()) {
+            throw new IllegalArgumentException("Title can not be empty or null.");
+        }
+
+        // This code snippet is performing a validation check in the constructor of the `Task` class in
+        // Java. It ensures that the length of the `title` parameter passed to the constructor does not
+        // exceed a maximum limit defined by the constant `MAX_LENGTH_TITLE`, which is set to 80
+        // characters.
+        if (title.length() > MAX_LENGTH_TITLE) {
+            throw new IllegalArgumentException("Title is too long and exceds of 80 characters.");
+        }
+
+        // This code snippet is a try-catch block used for handling potential exceptions when setting
+        // the creation date for a task in the `Task` class constructor.
+        try{
+            this.creationDate = LocalDate.now();
+        } catch(DateTimeException creationDateTimeException){
+            throw new IllegalArgumentException(
+                "Failed to assign creation date while creating object"+
+                creationDateTimeException.getMessage(),creationDateTimeException);
+        }
+        
         this.title = title;
-        this.description = "";
+        this.description = null;
         this.completed = false;
-        this.creationDate = LocalDate.now();
+        this.taskPriority = Priority.Unselected;
+        
     }
 
     // GETTERS AND SETTERS
