@@ -11,6 +11,7 @@ import com.ciphermath.microservice_tasks.Task;
 import com.ciphermath.microservice_tasks.Task.Priority;
 
 public class TestTask {
+    // TITLE VARIABLE
     @Test
     // This code snippet is a JUnit test method named `testTaskTitle` that tests the
     // functionality of
@@ -51,6 +52,7 @@ public class TestTask {
         assertEquals(null, testTask.getTitle());
     }
 
+    // PRIORITY VARIABLE
     @Test
     // This code snippet is a JUnit test method named `testTaskPriority` that tests
     // the functionality
@@ -86,13 +88,6 @@ public class TestTask {
         assertEquals(Priority.Low, taskTest.getPriority());
     }
 
-     // This test function checks if the due date of a task object is set correctly.
-    @Test
-    public void testTaskDueDate() {
-        Task taskTest = new Task("dummie", "dummie", LocalDate.of(1987, 01, 23), Priority.Unselected);
-        assertEquals(LocalDate.of(1987, 01, 23), taskTest.getDueDate());
-    }
-
     @Test
     // It creates a new `Task` object with a priority set
     // to `High` and then asserts that the priority returned by the `getPriority()` method is not equal
@@ -103,6 +98,15 @@ public class TestTask {
         assertNotEquals(null, taskTest.getPriority());
     }
 
+
+    // DUE DATE VARIABLE
+    // This test function checks if the due date of a task object is set correctly.
+    @Test
+    public void testTaskDueDate() {
+        Task taskTest = new Task("dummie", "dummie", LocalDate.of(1987, 01, 23), Priority.Unselected);
+        assertEquals(LocalDate.of(1987, 01, 23), taskTest.getDueDate());
+    }
+
     @Test
     // This JUnit test method named `testTaskDueDateNull()` is testing the functionality of the
     // `getDueDate()` method in the `Task` class when the due date of the task is set to `null`.
@@ -111,7 +115,8 @@ public class TestTask {
         assertEquals(null, taskTest.getDueDate());
     }
 
-     // The testCreationDateToString function tests if the creation date of a Task object is correctly
+    // CREATION DATE VARIABLE
+    // The testCreationDateToString function tests if the creation date of a Task object is correctly
      // converted to a string.
     @Test
     public void testCreationDateToString() {
@@ -127,5 +132,19 @@ public class TestTask {
     public void testCreationDateDifferentNull(){
         Task taskTest = new Task("null");
         assertNotEquals(null, taskTest.getCreationDate());
+    }
+
+    // COMPLETED VARIABLE
+    @Test
+    public void testCompleteIsFalse(){
+        Task testTask = new Task("null",null);
+        assertEquals(false, testTask.getCompleted());
+    }
+    
+    @Test
+    public void testCompleteIsTrue(){
+        Task testTask = new Task("null", null);
+        testTask.setCompleted(true);
+        assertEquals(true, testTask.getCompleted());
     }
 }

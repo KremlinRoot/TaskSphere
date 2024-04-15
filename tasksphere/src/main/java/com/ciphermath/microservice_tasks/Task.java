@@ -4,7 +4,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 
 /**
- * This class represents a task that will placed into list in app (To Do List).
+ * This class represents a task that will place into list in app (To Do List).
  */
 public class Task {
 
@@ -78,10 +78,26 @@ public class Task {
      * @param description Description task.
      */
     public Task(String title, String description) {
+        if (title == null || title.isEmpty()) {
+            throw new IllegalArgumentException("Title can not be empty or null.");
+        }
+        if (taskPriority != Priority.High && taskPriority != Priority.Medium && taskPriority != Priority.Low && taskPriority != Priority.Unselected && taskPriority != null) {
+            throw new IllegalArgumentException("Invalid Priority, this value must be High, Medium, Low or Unselected.");
+        }
+        
+        // This code snippet is a try-catch block used for handling potential exceptions when setting
+        // the creation date for a task in the `Task` class constructor.
+        try{
+            this.creationDate = LocalDate.now();
+        } catch (DateTimeException creationDateException){
+            throw new IllegalArgumentException(
+                "Failed to assign creation date while creating object" +
+                creationDateException.getMessage(), creationDateException);
+        }
+        
         this.title = title;
         this.description = description;
         this.completed = false;
-        this.creationDate = LocalDate.now();
     }
 
     /**
