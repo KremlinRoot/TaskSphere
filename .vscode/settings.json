@@ -2,5 +2,6 @@
     "java.configuration.updateBuildConfiguration": "interactive",
     "docwriter.style": "Javadoc",
     "docwriter.progress.trackClasses": true,
-    "docwriter.progress.trackTypes": false
+    "docwriter.progress.trackTypes": false,
+    "docwriter.hotkey.windows": "Ctrl + ."
 }

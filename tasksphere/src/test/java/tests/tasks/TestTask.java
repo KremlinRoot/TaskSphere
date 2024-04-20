@@ -50,8 +50,7 @@ public class TestTask {
     // title is set to
     // `null`.
     public void testTaskTitleWithNullValue() {
-        Task testTask = new Task(null);
-        assertEquals(null, testTask.getTitle());
+        assertThrows(NullPointerException.class, () -> new Task(null));
     }
 
     
@@ -76,8 +75,7 @@ public class TestTask {
     // null.
     @Test
     public void testTaskPriorityNull() {
-        Task taskTest = new Task("null", "null", null, null);
-        assertEquals(null, taskTest.getPriority());
+        assertThrows(IllegalArgumentException.class, () -> new Task("null", "null", LocalDate.now(), null));
     }
 
     // The testTaskPriorityMedium function tests if a Task object with Medium
@@ -116,8 +114,7 @@ public class TestTask {
 
     @Test
     public void testTaskUnknownPriorityValue(){
-        Task testTask = new Task("null", null, LocalDate.now(), null);
-        assertEquals(Priority.Unselected, testTask.getPriority());
+        assertThrows(IllegalArgumentException.class, () -> new Task("null", "null", LocalDate.now(), null));
     }
 
 
