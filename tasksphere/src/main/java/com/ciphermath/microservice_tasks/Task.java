@@ -27,47 +27,65 @@ public class Task {
      * @param taskPriority Priority for new task.
      */
     public Task(String title, String description, LocalDate dueDate, Priority taskPriority) {
-        // This code snippet is a validation check in the constructor of the `Task` class. It ensures
-        // that the `title` parameter passed to the constructor is not null or an empty string. If the
-        // `title` is either null or empty, it throws an `IllegalArgumentException` with the message
-        // "Title can not be empty or null". This validation helps enforce a requirement that a task
+        // This code snippet is a validation check in the constructor of the `Task`
+        // class. It ensures
+        // that the `title` parameter passed to the constructor is not null or an empty
+        // string. If the
+        // `title` is either null or empty, it throws an `IllegalArgumentException` with
+        // the message
+        // "Title can not be empty or null". This validation helps enforce a requirement
+        // that a task
         // must have a non-null and non-empty title when it is being created.
-        if (title == null || title.isEmpty()) {
-            throw new IllegalArgumentException("Title can not be empty or null");
+        if (title == null) {
+            throw new NullPointerException("Title can not be null.");
+        }
+
+        if (title.isEmpty() == true) {
+            throw new IllegalArgumentException("Title can not be empty. Please add a title for task.");
         }
 
         if (title.length() > MAX_LENGTH_TITLE) {
             throw new IllegalArgumentException("Title is too long and exceds of 80 characters.");
         }
 
-        // This code snippet is a validation check in the constructor of the `Task` class. It ensures
-        // that the `taskPriority` parameter passed to the constructor is one of the valid values
+        // This code snippet is a validation check in the constructor of the `Task`
+        // class. It ensures
+        // that the `taskPriority` parameter passed to the constructor is one of the
+        // valid values
         // defined in the `Priority` enum (`High`, `Medium`, or `Low`).
-        if (taskPriority != Priority.High && taskPriority != Priority.Medium && taskPriority != Priority.Low && taskPriority != Priority.Unselected) {
+        if (taskPriority != Priority.High && taskPriority != Priority.Medium && taskPriority != Priority.Low
+                && taskPriority != Priority.Unselected) {
             throw new IllegalArgumentException("Invalid Priority, this value must be High, Medium, Low or Unselected.");
         }
-        
-        // This code snippet is a try-catch block used for handling potential exceptions when setting
+
+        // This code snippet is a try-catch block used for handling potential exceptions
+        // when setting
         // the due date for a task in the `Task` class constructor.
-        try{
+        try {
             this.dueDate = dueDate;
-        } catch (DateTimeException dueDateException){
+        } catch (DateTimeException dueDateException) {
             throw new IllegalArgumentException("The format of due date is not correct, check it.", dueDateException);
         }
 
-        // This code snippet is a try-catch block used for handling potential exceptions when setting
+        // This code snippet is a try-catch block used for handling potential exceptions
+        // when setting
         // the creation date for a task in the `Task` class constructor.
-        try{
+        try {
             this.creationDate = LocalDate.now();
-        } catch (DateTimeException creationDateTimeException){
-            throw new IllegalArgumentException("Format for field creation date is invalid at moment of create task. Internal Error.", creationDateTimeException);
+        } catch (DateTimeException creationDateTimeException) {
+            throw new IllegalArgumentException(
+                    "Format for field creation date is invalid at moment of create task. Internal Error.",
+                    creationDateTimeException);
         }
 
-        // This code snippet is checking if the `creationDate` variable is not null. If it is not null,
-        // it throws a `NullPointerException` with the message "Creation date can not be null value.
+        // This code snippet is checking if the `creationDate` variable is not null. If
+        // it is not null,
+        // it throws a `NullPointerException` with the message "Creation date can not be
+        // null value.
         // Error at moment of creation Task, check it on code".
         if (creationDate == null) {
-            throw new NullPointerException("Creation date can not be null value. Error at moment of creation Task. Internal Error");
+            throw new NullPointerException(
+                    "Creation date can not be null value. Error at moment of creation Task. Internal Error");
         }
 
         this.title = title;
@@ -83,34 +101,49 @@ public class Task {
      * @param description Description task.
      */
     public Task(String title, String description) {
-        // This code snippet is a validation check in the constructor of the `Task` class in Java. It
-        // ensures that the `title` parameter passed to the constructor is not null or an empty string.
-        // If the `title` is either null or empty, it throws an `IllegalArgumentException` with the
-        // message "Title can not be empty or null." This validation helps enforce a requirement that a
+        // This code snippet is a validation check in the constructor of the `Task`
+        // class in Java. It
+        // ensures that the `title` parameter passed to the constructor is not null or
+        // an empty string.
+        // If the `title` is either null or empty, it throws an
+        // `IllegalArgumentException` with the
+        // message "Title can not be empty or null." This validation helps enforce a
+        // requirement that a
         // task must have a non-null and non-empty title when it is being created.
         if (title == null || title.isEmpty()) {
-            throw new IllegalArgumentException("Title can not be empty or null.");
+            throw new NullPointerException("Title can not be null.");
+        }
+        if (title.isEmpty() == true) {
+            throw new IllegalArgumentException("Titlte can not be empty.");
         }
 
-        // This code snippet is a validation check in the constructor of the `Task` class in Java. It
-        // ensures that the length of the `title` parameter passed to the constructor does not exceed a
-        // maximum limit defined by the constant `MAX_LENGTH_TITLE`, which is set to 80 characters. If
-        // the length of the `title` exceeds this limit, it throws an `IllegalArgumentException` with
-        // the message "Title is too long and exceeds 80 characters." This validation helps enforce a
-        // requirement that a task title should not be excessively long to maintain consistency and
+        // This code snippet is a validation check in the constructor of the `Task`
+        // class in Java. It
+        // ensures that the length of the `title` parameter passed to the constructor
+        // does not exceed a
+        // maximum limit defined by the constant `MAX_LENGTH_TITLE`, which is set to 80
+        // characters. If
+        // the length of the `title` exceeds this limit, it throws an
+        // `IllegalArgumentException` with
+        // the message "Title is too long and exceeds 80 characters." This validation
+        // helps enforce a
+        // requirement that a task title should not be excessively long to maintain
+        // consistency and
         // readability in the application.
         if (title.length() > MAX_LENGTH_TITLE) {
             throw new IllegalArgumentException("Title is too long and exceds of 80 characters.");
         }
-                
-        // This code snippet is a try-catch block used for handling potential exceptions when setting
+
+        // This code snippet is a try-catch block used for handling potential exceptions
+        // when setting
         // the creation date for a task in the `Task` class constructor.
-        try{
+        try {
             this.creationDate = LocalDate.now();
-        } catch (DateTimeException creationDateException){
+        } catch (DateTimeException creationDateException) {
             throw new IllegalArgumentException(
-                "Failed to assign creation date while creating object" +
-                creationDateException.getMessage(), creationDateException);
+                    "Failed to assign creation date while creating object" +
+                            creationDateException.getMessage(),
+                    creationDateException);
         }
         this.taskPriority = Priority.Unselected;
         this.title = title;
@@ -124,38 +157,50 @@ public class Task {
      * @param title Task title.
      */
     public Task(String title) {
-        // This code snippet is a validation check in the constructor of the `Task` class in Java. It
-        // ensures that the `title` parameter passed to the constructor is not null or an empty string.
-        // If the `title` is either null or empty, it throws an `IllegalArgumentException` with the
-        // message "Title can not be empty or null". This validation helps enforce a requirement that a
+        // This code snippet is a validation check in the constructor of the `Task`
+        // class in Java. It
+        // ensures that the `title` parameter passed to the constructor is not null or
+        // an empty string.
+        // If the `title` is either null or empty, it throws an
+        // `IllegalArgumentException` with the
+        // message "Title can not be empty or null". This validation helps enforce a
+        // requirement that a
         // task must have a non-null and non-empty title when it is being created.
         if (title == null || title.isEmpty()) {
-            throw new IllegalArgumentException("Title can not be empty or null.");
+            throw new NullPointerException("Title can not be null.");
+        }
+        if (title.isEmpty() == true) {
+            throw new IllegalArgumentException("Titlte can not be empty.");
         }
 
-        // This code snippet is performing a validation check in the constructor of the `Task` class in
-        // Java. It ensures that the length of the `title` parameter passed to the constructor does not
-        // exceed a maximum limit defined by the constant `MAX_LENGTH_TITLE`, which is set to 80
+        // This code snippet is performing a validation check in the constructor of the
+        // `Task` class in
+        // Java. It ensures that the length of the `title` parameter passed to the
+        // constructor does not
+        // exceed a maximum limit defined by the constant `MAX_LENGTH_TITLE`, which is
+        // set to 80
         // characters.
         if (title.length() > MAX_LENGTH_TITLE) {
             throw new IllegalArgumentException("Title is too long and exceds of 80 characters.");
         }
 
-        // This code snippet is a try-catch block used for handling potential exceptions when setting
+        // This code snippet is a try-catch block used for handling potential exceptions
+        // when setting
         // the creation date for a task in the `Task` class constructor.
-        try{
+        try {
             this.creationDate = LocalDate.now();
-        } catch(DateTimeException creationDateTimeException){
+        } catch (DateTimeException creationDateTimeException) {
             throw new IllegalArgumentException(
-                "Failed to assign creation date while creating object"+
-                creationDateTimeException.getMessage(),creationDateTimeException);
+                    "Failed to assign creation date while creating object" +
+                            creationDateTimeException.getMessage(),
+                    creationDateTimeException);
         }
-        
+
         this.title = title;
         this.description = null;
         this.completed = false;
         this.taskPriority = Priority.Unselected;
-        
+
     }
 
     // GETTERS AND SETTERS
@@ -281,5 +326,17 @@ public class Task {
         Medium,
         Low,
         Unselected
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Title: ").append(title).append("\n");
+        sb.append("Description: ").append(description).append("\n");
+        sb.append("Completed: ").append(completed).append("\n");
+        sb.append("Creation date: ").append(creationDate).append("\n");
+        sb.append("Due date: ").append(dueDate).append("\n");
+        sb.append("Priority: ").append(taskPriority).append("\n");
+        return sb.toString();
     }
 }
